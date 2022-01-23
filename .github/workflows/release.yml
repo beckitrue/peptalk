@@ -25,23 +25,4 @@ jobs:
 
           curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r '.value' > $AWS_WEB_IDENTITY_TOKEN_FILE
 
-      - run: aws sts get-caller-identity # just an example. why not deploy som
-
-# jobs:
-#   build:
-#     runs-on: ubuntu-latest
-#     steps:
-#     - name: Configure AWS Credentials
-#       uses: aws-actions/configure-aws-credentials@v1
-#       with:
-#         role-to-assume: arn:aws:iam::123456789100:role/my-github-actions-role
-#         aws-region: us-west-2
-#     - uses: actions/checkout@v1
-#     - name: Download AWS CLI
-#       run: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-#     - name: Unzip AWS CLI
-#       run: unzip awscliv2.zip
-#     - name: Install AWS CLI
-#       run: ./aws/install
-#     - name: Release to S3
-#       run: bash scripts/pipeline/release.sh ${{secrets.AWS_Bucket_Name}} "folder1/myapp.zip" ${{secrets.AWS_Access_Key}} ${{secrets.AWS_Access_Secret}} "myapp.zip"
+      - run: aws s3 cp ../../generator.go s3://beckitrue-lambdas/peptalk/generator.go
