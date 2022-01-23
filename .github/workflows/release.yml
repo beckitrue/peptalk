@@ -25,5 +25,11 @@ jobs:
           echo AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION >> $GITHUB_ENV
 
           curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r '.value' > $AWS_WEB_IDENTITY_TOKEN_FILE
+      
+      - name: ZIP file 
+        shell: bash
+        run: |
+           zip generator.zip generator.go
+      
       - name: Copy to S3
-        run: aws s3 cp generator.go s3://beckitrue-lambdas/peptalk/generator.go
+        run: aws s3 cp generator.zip s3://beckitrue-lambdas/peptalk/generator.zip
