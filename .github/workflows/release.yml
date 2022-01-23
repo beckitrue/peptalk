@@ -1,0 +1,47 @@
+name: ReleaseCI
+on:
+  push:
+    branches:
+      - master
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    permissions:
+      id-token: write
+      contents: read
+    steps:
+      - run: sleep 5 # there's still a race condition for now
+
+      - name: Configure AWS
+        run: |
+          export AWS_ROLE_ARN=arn:aws:iam::723098390750:role/GitHubActions
+          export AWS_WEB_IDENTITY_TOKEN_FILE=/tmp/awscreds
+          export AWS_DEFAULT_REGION=us-west-2
+
+          echo AWS_WEB_IDENTITY_TOKEN_FILE=$AWS_WEB_IDENTITY_TOKEN_FILE >> $GITHUB_ENV
+          echo AWS_ROLE_ARN=$AWS_ROLE_ARN >> $GITHUB_ENV
+          echo AWS_DEFAULT_REGION=$AWS_DEFAULT_REGION >> $GITHUB_ENV
+
+          curl -H "Authorization: bearer $ACTIONS_ID_TOKEN_REQUEST_TOKEN" "$ACTIONS_ID_TOKEN_REQUEST_URL" | jq -r '.value' > $AWS_WEB_IDENTITY_TOKEN_FILE
+
+      - run: aws sts get-caller-identity # just an example. why not deploy som
+
+# jobs:
+#   build:
+#     runs-on: ubuntu-latest
+#     steps:
+#     - name: Configure AWS Credentials
+#       uses: aws-actions/configure-aws-credentials@v1
+#       with:
+#         role-to-assume: arn:aws:iam::123456789100:role/my-github-actions-role
+#         aws-region: us-west-2
+#     - uses: actions/checkout@v1
+#     - name: Download AWS CLI
+#       run: curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
+#     - name: Unzip AWS CLI
+#       run: unzip awscliv2.zip
+#     - name: Install AWS CLI
+#       run: ./aws/install
+#     - name: Release to S3
+#       run: bash scripts/pipeline/release.sh ${{secrets.AWS_Bucket_Name}} "folder1/myapp.zip" ${{secrets.AWS_Access_Key}} ${{secrets.AWS_Access_Secret}} "myapp.zip"
