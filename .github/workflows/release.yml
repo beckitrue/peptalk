@@ -23,7 +23,7 @@ jobs:
           go version
 
       - name: Run build
-        run: GOOS=linux GOARCH=amd64 go build -o main ./lambda/generator-lambda.go
+        run: go build -o main ./lambda/generator-lambda.go
 
   deploy:
     runs-on: ubuntu-latest
