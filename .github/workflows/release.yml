@@ -30,6 +30,7 @@ jobs:
       - name: Run build
         run: |
           sleep 5
+          cd lambda
           GO111MODULE=on go build -o main main.go
 
   deploy:
