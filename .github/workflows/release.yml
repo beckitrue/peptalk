@@ -21,12 +21,14 @@ jobs:
       - name: Install dependencies
         run: |
           go version
-          go get github.com/aws/aws-lambda-go/lambda
 
       - name: Run build
         run: |
           cd lambda
           go mod init aws-lambda-go
+          go mod tidy
+          go get github.com/aws/aws-lambda-go/lambda
+          go list
           GO111MODULE=on go build -o main main.go
 
   deploy:
