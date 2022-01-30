@@ -21,9 +21,10 @@ jobs:
       - name: Install dependencies
         run: |
           go version
+          go get github.com/aws/aws-lambda-go/lambda
 
       - name: Run build
-        run: go build -o main ./lambda/generator-lambda.go
+        run: go build -o main ./lambda/main.go
 
   deploy:
     runs-on: ubuntu-latest
