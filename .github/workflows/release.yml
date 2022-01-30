@@ -31,7 +31,7 @@ jobs:
         run: |
           sleep 5
           cd lambda
-          GO111MODULE=on go build -o main main.go
+          GO111MODULE=on go build -o ./main main.go
 
   deploy:
     runs-on: ubuntu-latest
