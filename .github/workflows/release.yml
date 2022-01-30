@@ -57,10 +57,10 @@ jobs:
       - name: ZIP file 
         shell: bash
         run: |
-           cd lambda
+           cd /home/runner/work/peptalk/peptalk/lambda
            zip main.zip main
       
       - name: Copy to S3
         run: |
-           cd lambda
+           cd /home/runner/work/peptalk/peptalk/lambda
            aws s3 cp main.zip s3://beckitrue-lambdas/peptalk/main.zip
