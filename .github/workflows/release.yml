@@ -32,21 +32,12 @@ jobs:
           sleep 5
           cd lambda
           GO111MODULE=on GOARCH=amd64 GOOS=linux go build main.go
-          pwd
-          ls -l
 
       - name: ZIP file 
         shell: bash
         run: |
            cd /home/runner/work/peptalk/peptalk/lambda
            zip main.zip main
-
-  deploy:
-    runs-on: ubuntu-latest
-    needs: [build]
-    if: ${{ github.ref == 'refs/heads/main' && github.event_name == 'push' }} 
-    steps:
-      - uses: actions/checkout@v2
 
       - name: Configure AWS
         run: |
