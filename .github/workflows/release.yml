@@ -19,15 +19,17 @@ jobs:
         with:
           go-version: '1.17.0'
 
-      - name: Install dependencies
-        run: go version
-
-      - name: Run build
+      - name: Install dependencies and mod
         run: |
+          go version  
           cd lambda
           go mod init aws-lambda-go
           go mod tidy
           go list
+
+      - name: Run build
+        run: |
+          sleep 5
           GO111MODULE=on go build -o main main.go
 
   deploy:
