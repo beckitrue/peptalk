@@ -27,7 +27,7 @@ jobs:
         run: |
           cd lambda
           go mod init aws-lambda-go
-          GO111MODULE=on go build -o main ./lambda/main.go
+          GO111MODULE=on go build -o main main.go
 
   deploy:
     runs-on: ubuntu-latest
