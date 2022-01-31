@@ -28,7 +28,7 @@ func generate() (string, error) {
 		"breeds miracles,", "is paying off big time,", "shows mad skills,", "just shimmers,",
 		"is a national treasure,", "gets the party hopping,", "is the next big thing,",
 		"roars like a lion", "is a rainbow factory,", "is made of diamonds,", "makes birds sing,",
-		"should be taught in school,", "makes my world go 'round,", "is 100% legit,"}
+		"should be taught in school,", "makes my world go 'round,", "is 100 percent legit,"}
 	var a4 = []string{
 		"24/7.", "can I get an amen?", "and that's a fact.", "so treat yourself.", "you feel me?",
 		"that's just science.", "would I lie?", "for reals.", "mic drop.", "you hidden gem.",
